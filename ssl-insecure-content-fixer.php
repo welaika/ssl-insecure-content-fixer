@@ -48,6 +48,12 @@ SSLInsecureContentFixer::getInstance();
 * @return string
 */
 function ssl_insecure_content_fix_url($url) {
+    // return unchanged url if Dashboard or the administration panel
+    // is attempting to be displayed
+    if ( is_admin() ) {
+        return $url;
+    }
+
 	// only fix if source URL starts with http://
 	if (stripos($url, 'http://') === 0) {
 		$url = 'https' . substr($url, 4);
